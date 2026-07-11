@@ -61,31 +61,7 @@ export default function Cart() {
   return (
     <div style={{ fontFamily: "Raleway" }}>
 
-      {/* 🔝 NAVBAR */}
-      <div style={{
-        backgroundColor: "#FFD300",
-        padding: "15px 30px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <img src={logo} alt="logo" style={{ height: "40px" }} />
-          <b>Bookish</b>
-        </div>
-
-        <div>
-          <span 
-            onClick={() => navigate("/home")} 
-            style={{ margin: "10px", cursor: "pointer" }}
-          >
-            Home
-          </span>
-
-          <span style={{ margin: "10px" }}>Cart</span>
-        </div>
-      </div>
-
+      
       {/* 🛒 CART ITEMS */}
       <div style={{
         display: "grid",

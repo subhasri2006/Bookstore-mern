@@ -2,17 +2,13 @@ import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
-
-export default function Orders() {
+export default function Orders({ darkMode }) {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-
   const email = localStorage.getItem("email");
-
   useEffect(() => {
     if (email) fetchOrders();
   }, [email]);
-
   const fetchOrders = async () => {
     try {
       const res = await API.get(`/orders/${email}`);
@@ -22,93 +18,144 @@ export default function Orders() {
       setOrders([]);
     }
   };
-
   return (
-    <div style={{ fontFamily: "Raleway" }}>
+    <div style={{
+      fontFamily: "Arial",
+      paddingBottom: "80px",
+      background: darkMode ? "#121212" : "white",
+      color: darkMode ? "white" : "black",
+      minHeight: "100vh"
+    }}>
 
-      {/* 🔝 NAVBAR */}
-      <div style={{
-        backgroundColor: "#FFD300",
-        padding: "15px 30px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <img src={logo} alt="logo" style={{ height: "40px" }} />
-          <b>Bookish</b>
-        </div>
+     
 
-        <div>
-          <span 
-            onClick={() => navigate("/home")} 
-            style={{ margin: "10px", cursor: "pointer" }}
-          >
-            Home
-          </span>
-
-          <span style={{ margin: "10px" }}>Orders</span>
-        </div>
-      </div>
-
-      {/* 📦 ORDERS */}
+      {/* 📦 ORDERS GRID */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: "20px",
-        padding: "30px"
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "30px",
+        padding: "40px"
       }}>
         {orders.length === 0 ? (
           <h2>No Orders Yet 😢</h2>
         ) : (
-          orders.map((order) => (
-            <div key={order._id} style={{
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              padding: "15px",
-              textAlign: "center",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
-            }}>
+          orders.map((order) => {
 
-              <h3 style={{ marginBottom: "10px" }}>
-                Order ID
-              </h3>
+            const firstItem = order.items?.[0];
 
-              <p style={{ fontSize: "12px", color: "gray" }}>
-                {order._id}
-              </p>
-
-              <p style={{ fontWeight: "bold", margin: "15px 0" }}>
-                Total: ₹{order.total}
-              </p>
-
-              <button
-                onClick={() => navigate(`/orders/${order._id}`)}
-                style={{
-                  background: "black",
-                  color: "white",
-                  border: "none",
-                  padding: "10px",
-                  cursor: "pointer",
-                  width: "100%"
-                }}
+            return (
+              <div key={order._id} style={{
+                borderRadius: "15px",
+                padding: "50px",
+                background: darkMode ? "#1e1e1e" : "white",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+                transition: "0.3s",
+                cursor: "pointer"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
               >
-                View Details
-              </button>
 
-            </div>
-          ))
+                {/* 🧾 ORDER HEADER */}
+                <div style={{ marginBottom: "15px" }}>
+                  <p style={{ fontSize: "12px", color: darkMode ? "#aaa" : "gray" }}>
+                    Order ID
+                  </p>
+                  <p style={{ fontWeight: "bold", fontSize: "14px" }}>
+                    {order._id}
+                  </p>
+                </div>
+
+                {/* 📸 BOOK IMAGE */}
+                {firstItem && (
+                  <div style={{
+                    width: "100%",
+                    height: "180px",
+                    background: darkMode ? "#2a2a2a" : "#f5f5f5",
+                    borderRadius: "10px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "15px"
+                  }}>
+                    <img
+                      src={firstItem.image}
+                      alt=""
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain"
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* 📘 TITLE */}
+                <h3 style={{
+                  fontSize: "18px",
+                  marginBottom: "5px"
+                }}>
+                  {firstItem?.title || "Book"}
+                </h3>
+
+                {/* ➕ MORE ITEMS */}
+                {order.items?.length > 1 && (
+                  <p style={{ fontSize: "13px", color: darkMode ? "#aaa" : "gray" }}>
+                    +{order.items.length - 1} more items
+                  </p>
+                )}
+
+                {/* 💰 TOTAL + STATUS */}
+                <div style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "15px"
+                }}>
+                  <span style={{
+                    fontWeight: "bold",
+                    fontSize: "18px"
+                  }}>
+                    ₹{order.total}
+                  </span>
+
+                  {/* 🟢 STATUS */}
+                  <span style={{
+                    background: "#e8f5e9",
+                    color: "#2e7d32",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                    fontSize: "12px",
+                    fontWeight: "bold"
+                  }}>
+                    Delivered
+                  </span>
+                </div>
+                {/* 🔘 BUTTON */}
+                <button
+                  onClick={() => navigate(`/orders/${order._id}`)}
+                  style={{
+                    marginTop: "15px",
+                    width: "100%",
+                    padding: "10px",
+                    background: darkMode ? "white" : "black",
+                    color: darkMode ? "black" : "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer"
+                  }}
+                >
+                  View Details
+                </button>
+
+              </div>
+            );
+          })
         )}
-      </div>
-
-      {/* 🔻 FOOTER */}
-      <div style={{
-        backgroundColor: "black",
-        color: "#FFD300",
-        padding: "15px",
-        textAlign: "center"
-      }}>
-        About | Contact
       </div>
 
     </div>

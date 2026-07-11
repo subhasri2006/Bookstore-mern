@@ -52,18 +52,21 @@
 
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: 100%;          /* ✅ FULL WIDTH */
+   max-width: 100%; /* ✅ CONTROLLED CENTER */
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  border-inline: 1px solid var(--border);
+  border: none;
 }
 
 h1,
@@ -108,4 +111,39 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+/* DARK MODE (CONTROLLED) */
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
+/* KEEP NAVBAR YELLOW ALWAYS */
+nav {
+  background-color: #FFD300 !important;
+  color: black !important;
+}
+
+/* BOOK CARDS */
+.card {
+  background: #ffffff;
+  color: black;
+  border: 1px solid #ddd;
+}
+
+body.dark .card {
+  background: #1e1e1e;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* BUTTON */
+.btn {
+  background: black;
+  color: white;
+}
+
+body.dark .btn {
+  background: white;
+  color: black;
 }

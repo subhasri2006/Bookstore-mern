@@ -15,7 +15,6 @@ export default function Login() {
 
   const ADMIN_EMAIL = "subhasri4844@gmail.com";
 
-  // ✅ EMAIL LOGIN
   const handleLogin = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -25,8 +24,6 @@ export default function Login() {
       );
 
       const user = userCredential?.user;
-
-      console.log("LOGIN EMAIL:", user?.email);
 
       if (!user) {
         alert("Login failed");
@@ -42,20 +39,16 @@ export default function Login() {
       }
 
     } catch (err) {
-      console.log(err.message);
       alert(err.message);
     }
   };
 
-  // ✅ GOOGLE LOGIN (FIXED)
   const handleGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
       const user = result.user;
-
-      console.log("GOOGLE EMAIL:", user.email);
 
       localStorage.setItem("email", user.email);
 
@@ -66,7 +59,6 @@ export default function Login() {
       }
 
     } catch (err) {
-      console.log(err.message);
       alert(err.message);
     }
   };
@@ -74,6 +66,7 @@ export default function Login() {
   return (
     <div style={{
       height: "100vh",
+      overflow: "auto",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -81,8 +74,8 @@ export default function Login() {
     }}>
       
       <div style={{
-        width: "800px",
-        height: "450px",
+        width: "2000px",
+        height: "950px",
         display: "flex",
         borderRadius: "10px",
         overflow: "hidden",
@@ -98,8 +91,8 @@ export default function Login() {
           justifyContent: "center",
           alignItems: "center"
         }}>
-          <img src={logo} alt="logo" style={{ width: "80px" }} />
-          <h2>Bookish</h2>
+          <img src={logo} alt="logo" style={{ width: "250px" }} />
+          <h2 style={{ fontSize: "40px" }}>Bookish</h2>
         </div>
 
         {/* RIGHT SIDE */}
@@ -109,23 +102,33 @@ export default function Login() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "40px"
+          padding: "80px"
         }}>
           
-          <h2>Login</h2>
+          <h2 style={{ fontSize: "50px", marginBottom: "30px" }}>Login</h2>
 
           <input
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-            style={{ margin: "10px 0", padding: "10px" }}
+            style={{
+              margin: "20px 0",
+              padding: "20px",
+              fontSize: "22px",
+              borderRadius: "5px"
+            }}
           />
 
           <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            style={{ margin: "10px 0", padding: "10px" }}
+            style={{
+              margin: "20px 0",
+              padding: "20px",
+              fontSize: "22px",
+              borderRadius: "5px"
+            }}
           />
 
           <button
@@ -133,9 +136,11 @@ export default function Login() {
             style={{
               background: "#FFD300",
               border: "none",
-              padding: "10px",
-              marginTop: "10px",
-              cursor: "pointer"
+              padding: "20px",
+              marginTop: "20px",
+              cursor: "pointer",
+              fontSize: "22px",
+              fontWeight: "bold"
             }}
           >
             Login
@@ -144,19 +149,25 @@ export default function Login() {
           <button
             onClick={handleGoogle}
             style={{
-              marginTop: "15px",
-              padding: "10px",
-              cursor: "pointer"
+              marginTop: "25px",
+              padding: "20px",
+              cursor: "pointer",
+              fontSize: "22px"
             }}
           >
             Continue with Google
           </button>
 
-          <p style={{ marginTop: "15px" }}>
+          <p style={{ marginTop: "30px", fontSize: "20px" }}>
             Don't have an account?
             <span
               onClick={() => navigate("/register")}
-              style={{ color: "blue", cursor: "pointer", marginLeft: "5px" }}
+              style={{
+                color: "blue",
+                cursor: "pointer",
+                marginLeft: "10px",
+                fontSize: "20px"
+              }}
             >
               Register
             </span>

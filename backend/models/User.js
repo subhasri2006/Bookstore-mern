@@ -19,7 +19,18 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  cart: [cartSchema]
+   phone: {
+    type: String,
+    default: ""
+  },
+  cart: [cartSchema],
+
+  // ✅ FIXED — INSIDE schema
+ wishlist: {
+  type: [mongoose.Schema.Types.ObjectId],
+  ref: "Book",
+  default: []   // ✅ THIS FIXES FOREVER
+}
 });
 
 module.exports = mongoose.model("User", userSchema);

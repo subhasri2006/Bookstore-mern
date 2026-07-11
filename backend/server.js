@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const router = express.Router();
+
 dotenv.config();
 
 const app = express();
@@ -24,7 +25,8 @@ app.use("/api/orders", orderRoutes);
 app.get("/", (req, res) => {
   res.send("API running 🚀");
 });
-
+const aiRoutes = require("./routes/aiRoutes");
+app.use("/api/ai", aiRoutes);
 // ✅ DB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
@@ -33,3 +35,7 @@ mongoose.connect(process.env.MONGO_URI)
 // ✅ SERVER
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+const interactionRoutes = require("./routes/interactionRoutes");
+app.use("/api/interactions", interactionRoutes);
+const recommendationRoutes = require("./routes/recommendationRoutes");
+app.use("/api/recommendations", recommendationRoutes);

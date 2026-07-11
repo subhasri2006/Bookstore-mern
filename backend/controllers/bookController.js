@@ -3,6 +3,11 @@ const Book = require("../models/Book");
 // Add Book
 const addBook = async (req, res) => {
   try {
+    if (req.body.category) {
+      req.body.category =
+        req.body.category.charAt(0).toUpperCase() +
+        req.body.category.slice(1).toLowerCase();
+    }
     const book = new Book(req.body);
     const savedBook = await book.save();
     res.status(201).json(savedBook);
@@ -35,6 +40,11 @@ const getBookById = async (req, res) => {
 // Update Book
 const updateBook = async (req, res) => {
   try {
+     if (req.body.category) {
+      req.body.category =
+        req.body.category.charAt(0).toUpperCase() +
+        req.body.category.slice(1).toLowerCase();
+    }
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
       req.body,
