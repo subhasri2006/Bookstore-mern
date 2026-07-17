@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://your-render-backend-url.onrender.com"
+  baseURL: "https://bookstore-backend-7brx.onrender.com"
 });
 
 // attach token automatically
