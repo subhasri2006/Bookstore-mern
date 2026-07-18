@@ -170,7 +170,7 @@ const toggleWishlist = async (bookId) => {
 
       {/* 👋 HERO BOX */}
       <div style={{
-        marginTop: "80px",
+        marginTop: "200px",
         display: "flex",
         justifyContent: "center"
       }}>
@@ -178,12 +178,12 @@ const toggleWishlist = async (bookId) => {
           width: "90%",
           background: darkMode ? "#1e1e1e" : "white",
           borderRadius: "20px",
-          padding: "20px 40px",
+          padding: "20px 60px",
           boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
           textAlign: "left"
         }}>
           <h1 style={{
-            fontSize: "36px",
+            fontSize: "48px",
             fontWeight: "900",
             marginBottom: "10px",
             textTransform: "uppercase",
@@ -195,7 +195,7 @@ const toggleWishlist = async (bookId) => {
           </h1>
 
           <p style={{
-            fontSize: "20px",
+            fontSize: "30px",
             fontWeight: "600",
             marginBottom: "8px",
             letterSpacing: "2px",
@@ -221,7 +221,7 @@ const toggleWishlist = async (bookId) => {
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
   gap: "70px",
-  padding: "40px"
+  padding: "100px"
 }}>
   {books.map((b) => (
     <div
@@ -230,7 +230,7 @@ const toggleWishlist = async (bookId) => {
       onClick={() => navigate(`/book/${b._id}`)}
       style={{
         borderRadius: "15px",
-        padding: "20px",
+        padding: "100px",
         textAlign: "center",
         boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
         cursor: "pointer",
@@ -247,7 +247,7 @@ const toggleWishlist = async (bookId) => {
           position: "absolute",
           top: "15px",
           right: "15px",
-          fontSize: "22px",
+          fontSize: "32px",
           cursor: "pointer"
         }}
         onClick={(e) => {
@@ -284,7 +284,7 @@ const toggleWishlist = async (bookId) => {
 
       {/* TITLE */}
       <h3 style={{
-        fontSize: "18px",
+        fontSize: "30px",
         marginBottom: "10px",
         minHeight: "45px"
       }}>
@@ -294,7 +294,7 @@ const toggleWishlist = async (bookId) => {
       {/* PRICE */}
       <p style={{
         fontWeight: "bold",
-        fontSize: "18px",
+        fontSize: "27px",
         marginBottom: "20px"
       }}>
         ₹{b.price}
@@ -315,11 +315,11 @@ const toggleWishlist = async (bookId) => {
     style={{
       background: "#1a237e",
       color: "white",
-      padding: "12px",
+      padding: "18px",
       border: "none",
       borderRadius: "15px",
       cursor: "pointer",
-      fontSize: "15px",
+      fontSize: "22px",
       fontWeight: "bold"
     }}
   >
@@ -341,11 +341,11 @@ const toggleWishlist = async (bookId) => {
       style={{
         background: darkMode ? "#333" : "black",
         color: "white",
-        padding: "12px",
+        padding: "20px",
         border: "none",
         borderRadius: "15px",
         cursor: "pointer",
-        fontSize: "15px",
+        fontSize: "22px",
         flex: 1
       }}
     >
