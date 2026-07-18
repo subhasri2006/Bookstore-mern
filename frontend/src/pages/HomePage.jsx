@@ -390,4 +390,4 @@ const toggleWishlist = async (bookId) => {
 
     </div>
   );
-}
+} 
