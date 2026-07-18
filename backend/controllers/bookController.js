@@ -1,16 +1,27 @@
 const Book = require("../models/Book");
 
 // Add Book
+// Add Book
 const addBook = async (req, res) => {
   try {
+
     if (req.body.category) {
       req.body.category =
         req.body.category.charAt(0).toUpperCase() +
         req.body.category.slice(1).toLowerCase();
     }
-    const book = new Book(req.body);
+
+    const book = new Book({
+      ...req.body,
+
+      // Cloudinary image URL
+      image: req.file ? req.file.path : ""
+    });
+
     const savedBook = await book.save();
+
     res.status(201).json(savedBook);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

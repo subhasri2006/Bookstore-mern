@@ -13,28 +13,60 @@ export default function AddBook() {
     price: "",
     category: "",
     stock: "",
-    image: "",
+    image: null,
     pdfFile: "",
     isbn: ""
   });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+const handleChange = (e) => {
 
+  if (e.target.name === "image") {
+    setForm({
+      ...form,
+      image: e.target.files[0]
+    });
+  } 
+  else {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
+
+};
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await API.post("/books", form);
-      alert("Book added successfully 🎉");
-      navigate("/admin");
-    } catch (err) {
-      console.log(err);
-      alert("Error adding book ❌");
-    }
-  };
+  try {
 
+    const formData = new FormData();
+
+    formData.append("title", form.title);
+    formData.append("author", form.author);
+    formData.append("description", form.description);
+    formData.append("price", form.price);
+    formData.append("category", form.category);
+    formData.append("stock", form.stock);
+    formData.append("isbn", form.isbn);
+
+    formData.append("image", form.image);
+
+
+    await API.post("/books", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+
+
+    alert("Book added successfully 🎉");
+    navigate("/admin");
+
+  } catch (err) {
+    console.log(err);
+    alert("Error adding book ❌");
+  }
+};
   return (
     <div style={{ fontFamily: "Raleway" }}>
 
@@ -92,7 +124,7 @@ export default function AddBook() {
               { name: "price", placeholder: "Price", type: "number" },
               { name: "category", placeholder: "Category" },
               { name: "stock", placeholder: "Stock", type: "number" },
-              { name: "image", placeholder: "Image URL" },
+              { name: "image", placeholder: "Upload Image",type: "file"},
               { name: "pdfFile", placeholder: "PDF URL" },
               { name: "isbn", placeholder: "ISBN" }
             ].map((field, index) => (

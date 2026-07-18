@@ -7,10 +7,9 @@ router.get("/:bookId", async (req, res) => {
   try {
     const { bookId } = req.params;
 
-    const response = await axios.get(
-      `http://localhost:5001/recommend/${bookId}`
-    );
-
+    const response = await axios.get(`${process.env.ML_API_URL}/recommend/${bookId}`)
+    console.log("ML URL:", process.env.ML_API_URL);
+console.log("BOOK ID:", bookId);
     res.json(response.data);
   } catch (err) {
     console.log(err);

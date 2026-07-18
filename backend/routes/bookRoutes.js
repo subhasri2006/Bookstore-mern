@@ -92,7 +92,13 @@ router.get("/:id", getBookById);
 
 
 // ✅ ADMIN ROUTES
-router.post("/", addBook);
+const upload = require("../middleware/upload");
+
+router.post(
+  "/add",
+  upload.single("image"),
+  addBook
+);
 router.put("/:id", authMiddleware, adminMiddleware, updateBook);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteBook);
 
